@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMTELE-WEB | Sala de Control</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ENCABEZADO PRINCIPAL -->
+    <header>
+        <div>
+            <h1>SIMTELE-WEB</h1>
+            <p>Sistema de monitoreo y prevención de Mi Teleférico</p>
+        </div>
+        <div class="estado">
+            <span class="indicador"></span>
+            SISTEMA OPERATIVO
+        </div>
+    </header>
+
+    <!-- MENU DE NAVEGACION -->
+    <nav>
+        <button class="boton-menu activo" data-modulo="emergencia">
+            Emergencia
+        </button>
+
+        <button class="boton-menu" data-modulo="mantenimiento">
+            Mantenimiento
+        </button>
+
+        <button class="boton-menu" data-modulo="viento">
+            Viento
+        </button>
+
+        <button class="boton-menu" data-modulo="sensores">
+            Sensores
+        </button>
+    </nav>
+
+    <main>
+
+        <!-- MODULO 1: DETENCION DE EMERGENCIA -->
+        <section id="emergencia" class="modulo">
+            <div class="titulo-modulo">
+                <h2>Detención de emergencia</h2>
+                <p>Calcula la distancia recorrida durante el tiempo de reacción.</p>
+            </div>
+
+            <div class="panel">
+                <form id="formEmergencia">
+
+                    <label for="velocidad">Velocidad (km/h)</label>
+                    <input type="number" id="velocidad"
+                           placeholder="Ej. 72" min="0" step="any" required>
+
+                    <label for="tiempo">Tiempo de reacción (segundos)</label>
+                    <input type="number" id="tiempo"
+                           placeholder="Ej. 3" min="0" step="any" required>
+
+                    <button type="submit">Calcular distancia</button>
+                </form>
+
+                <div id="resultadoEmergencia" class="resultado">
+                    Esperando datos para realizar el cálculo.
+                </div>
+            </div>
+        </section>
+
+
+        <!-- MODULO 2: MANTENIMIENTO -->
+        <section id="mantenimiento" class="modulo oculto">
+            <div class="titulo-modulo">
+                <h2>Control de mantenimiento</h2>
+                <p>Registro y seguimiento del estado de los componentes.</p>
+            </div>
+
+            <div class="panel">
+                <form id="formMantenimiento">
+
+                    <label for="componente">Nombre del componente</label>
+                    <input type="text" id="componente"
+                           placeholder="Ej. Motor principal" required>
+
+                    <label for="horas">Horas de uso</label>
+                    <input type="number" id="horas"
+                           placeholder="Ej. 250" min="0" step="any" required>
+
+                    <label for="estado">Estado del componente</label>
+                    <select id="estado">
+                        <option value="Normal">Normal</option>
+                        <option value="Revisión">Revisión</option>
+                        <option value="Urgente">Urgente</option>
+                    </select>
+
+                    <button type="submit">Agregar componente</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Componentes registrados</h3>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Componente</th>
+                                <th>Horas</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMantenimiento">
+                        </tbody>
+                    </table>
+                </div>
+
+                <p id="mensajeMantenimiento" class="mensaje-vacio">
+                    No hay componentes registrados.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- MODULO 3: VIENTO Y OSCILACION -->
+        <section id="viento" class="modulo oculto">
+            <div class="titulo-modulo">
+                <h2>Monitoreo de viento</h2>
+                <p>Registro de cinco mediciones y análisis de sus valores.</p>
+            </div>
+
+            <div class="panel">
+                <form id="formViento">
+
+                    <label for="medicion1">Medición 1 (km/h)</label>
+                    <input type="number" id="medicion1" min="0"
+                           step="any" required>
+
+                    <label for="medicion2">Medición 2 (km/h)</label>
+                    <input type="number" id="medicion2" min="0"
+                           step="any" required>
+
+                    <label for="medicion3">Medición 3 (km/h)</label>
+                    <input type="number" id="medicion3" min="0"
+                           step="any" required>
+
+                    <label for="medicion4">Medición 4 (km/h)</label>
+                    <input type="number" id="medicion4" min="0"
+                           step="any" required>
+
+                    <label for="medicion5">Medición 5 (km/h)</label>
+                    <input type="number" id="medicion5" min="0"
+                           step="any" required>
+
+                    <button type="submit">Analizar mediciones</button>
+                </form>
+
+                <div id="resultadoViento" class="resultado">
+                    Esperando las cinco mediciones.
+                </div>
+            </div>
+        </section>
+
+
+        <!-- MODULO 4: CONTROL DE SENSORES -->
+        <section id="sensores" class="modulo oculto">
+            <div class="titulo-modulo">
+                <h2>Registro de sensores</h2>
+                <p>Validación y control de las lecturas recibidas.</p>
+            </div>
+
+            <div class="panel">
+                <form id="formSensores">
+
+                    <label for="codigo">Código del sensor</label>
+                    <input type="text" id="codigo"
+                           placeholder="Ej. SEN-001" required>
+
+                    <small>Formato requerido: SEN- seguido de tres números.</small>
+
+                    <label for="tipo">Tipo de sensor</label>
+                    <select id="tipo">
+                        <option value="Temperatura">Temperatura</option>
+                        <option value="Vibración">Vibración</option>
+                        <option value="Velocidad">Velocidad</option>
+                        <option value="Presión">Presión</option>
+                    </select>
+
+                    <label for="lectura">Lectura del sensor</label>
+                    <input type="number" id="lectura"
+                           placeholder="Ej. 35.5" step="any" required>
+
+                    <button type="submit">Registrar sensor</button>
+                </form>
+
+                <div id="resultadoSensor" class="resultado">
+                    Esperando registro de sensores.
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Sensores registrados</h3>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Tipo</th>
+                                <th>Lectura</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaSensores">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        SIMTELE-WEB | Proyecto educativo de simulación
+        <p>Los valores y alertas son únicamente demostrativos.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
